@@ -98,7 +98,7 @@ function init() {
    userQuestions()
        .then(answers => {
            console.log(answers)
-            writeToFile('./dist/index.html',answers);
+            writeToFile('./dist/index.html', answers);
        }
    );
 }
