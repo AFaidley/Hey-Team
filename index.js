@@ -87,11 +87,11 @@ const userQuestions = () => {
 };
 
 // Function to write HTML file
-// function writeToFile(fileName, data) {
-//     fs.writeFile(fileName, createhtml(data.join('')), function(err) { 
-//         console.log(err)
-//     })
-// }
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, createHtml(data.join('')), function(err) { 
+        console.log(err)
+    })
+}
 
 // Init func to start app
 function init() {
