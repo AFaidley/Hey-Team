@@ -1,7 +1,7 @@
 // Global vars and packages
 const inquirer = require("inquirer");
 const fs = require("fs");
-const {createHtml, createManagerCard, createInternCard, createEngineerCard} = require('./lib/createhtml');
+const { createHtml, createManagerCard, createInternCard, createEngineerCard } = require('./lib/createhtml');
 const Engineer = require("./lib/engineer.js");
 const Intern = require("./lib/intern.js");
 const Manager = require("./lib/manager.js");
@@ -14,7 +14,7 @@ const userQuestions = () => {
             type: 'list',
             name: 'role',
             message: 'Select the Employee role',
-            choices: ['Manager','Engineer','Intern']
+            choices: ['Manager', 'Engineer', 'Intern']
         },
         {
             type: 'input',
@@ -56,51 +56,51 @@ const userQuestions = () => {
             default: false,
         }
     ])
-    .then (output => {
-        // takes output of user input to create employee cards
-        let { name, id, email, role, officeNum, githubName, schoolName, addTeam } = output; 
-        let employee; 
-        let employeeObj;
+        .then(output => {
+            // takes output of user input to create employee cards
+            let { name, id, email, role, officeNum, githubName, schoolName, addTeam } = output;
+            let employee;
+            let employeeObj;
 
-        if (role === "Manager") {
-            employeeObj= new Manager (name, id, email, officeNum);
-            employee = createManagerCard(employeeObj);
-        }
-        else if (role === "Engineer") {
-            employeeObj = new Engineer (name, id, email, githubName);
-            employee = createEngineerCard(employeeObj);
+            if (role === "Manager") {
+                employeeObj = new Manager(name, id, email, officeNum);
+                employee = createManagerCard(employeeObj);
+            }
+            else if (role === "Engineer") {
+                employeeObj = new Engineer(name, id, email, githubName);
+                employee = createEngineerCard(employeeObj);
 
-        } else if (role === "Intern") {
-            employeeObj = new Intern (name, id, email, schoolName);
-            employee = createInternCard(employeeObj);
-        }
+            } else if (role === "Intern") {
+                employeeObj = new Intern(name, id, email, schoolName);
+                employee = createInternCard(employeeObj);
+            }
 
-        teamArr.push(employee); 
+            teamArr.push(employee);
 
-        // If user answers yes to adding more members, present questions again else return populated team array
-        if (addTeam) {
-            return userQuestions(); 
-        } else {
-            return teamArr;
-        }
-    }) 
+            // If user answers yes to adding more members, present questions again else return populated team array
+            if (addTeam) {
+                return userQuestions();
+            } else {
+                return teamArr;
+            }
+        })
 };
 
 // Function to write HTML file
 function writeToFile(fileName, data) {
-    fs.writeFile(fileName, createHtml(data.join('')), function(err) { 
+    fs.writeFile(fileName, createHtml(data.join('')), function (err) {
         console.log(err)
     })
 }
 
 // Init func to start app
 function init() {
-   userQuestions()
-       .then(answers => {
-           console.log(answers)
+    userQuestions()
+        .then(answers => {
+            console.log(answers)
             writeToFile('./dist/index.html', answers);
-       }
-   );
+        }
+        );
 }
 
 // Call functions
